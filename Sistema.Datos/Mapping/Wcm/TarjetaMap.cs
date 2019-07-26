@@ -17,7 +17,9 @@ namespace Sistema.Datos.Mapping.Wcm
               .HasKey(c => c.id);
             builder.Property(c => c.nombre)
                 .HasMaxLength(50);
-          
+            builder.Property(c => c.descripcion)
+                .HasMaxLength(256);
+
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Sistema.Web.Controllers.Wcm
             {
                 id = c.id,
                 nombre = c.nombre,
+                descripcion= c.descripcion,
               
                 activo = c.activo,
                 eliminado = c.eliminado
@@ -53,6 +54,7 @@ namespace Sistema.Web.Controllers.Wcm
             {
                 id = tarjeta.id,
                 nombre = tarjeta.nombre,
+                descripcion= tarjeta.descripcion,
                 activo = tarjeta.activo,
                 eliminado = tarjeta.eliminado
             });
@@ -81,6 +83,7 @@ namespace Sistema.Web.Controllers.Wcm
             }
 
             tarjeta.nombre = model.nombre;
+            tarjeta.descripcion = model.descripcion;
             
           
            
@@ -110,6 +113,7 @@ namespace Sistema.Web.Controllers.Wcm
             Tarjeta tarjeta = new Tarjeta
             {
                 nombre = model.nombre,
+                descripcion= model.descripcion,
          
                 activo = true,
                 eliminado = false

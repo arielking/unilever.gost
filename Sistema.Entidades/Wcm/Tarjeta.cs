@@ -14,6 +14,7 @@ namespace Sistema.Entidades.Wcm
         [StringLength(256)]
       
         public bool activo { get; set; }
+        public string descripcion { get; set; }
         public bool eliminado { get; set; }
     }
 }
