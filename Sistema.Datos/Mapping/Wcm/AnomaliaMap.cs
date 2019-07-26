@@ -10,7 +10,7 @@ namespace Sistema.Datos.Mapping.Wcm
     class AnomaliaMap : IEntityTypeConfiguration<Anomalia>
     {
 
-
+        // clase de contructures
         public void Configure(EntityTypeBuilder<Anomalia> builder)
         {
             builder.ToTable("tb_anomalia")
