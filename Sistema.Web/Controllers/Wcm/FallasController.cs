@@ -6,74 +6,62 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema.Datos;
-using Sistema.Entidades.Almacen;
-using Sistema.Web.Models.Almacen.Categoria;
+using Sistema.Entidades.Wcm;
+using Sistema.Web.Models.Wcm.Falla;
 
-namespace Sistema.Web.Controllers
+namespace Sistema.Web.Controllers.Wcm
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriasController : ControllerBase
+    public class FallasController : ControllerBase
     {
         private readonly DbContextSistema _context;
 
-        public CategoriasController(DbContextSistema context)
+        public FallasController(DbContextSistema context)
         {
             _context = context;
         }
 
-        // GET: api/Categorias/Listar
+        // GET: api/Falla/Listar
         [HttpGet("[action]")]
-        public async Task<IEnumerable<CategoriaViewModel>> Listar()
+        public async Task<IEnumerable<FallaViewModel>> Listar()
         {
-            var categoria = await _context.Categorias.ToListAsync();
+            var falla = await _context.Fallas.ToListAsync();
 
-            return categoria.Select(c => new CategoriaViewModel
+            return falla.Select(c => new FallaViewModel
             {
-                idcategoria = c.idcategoria,
+                id = c.id,
                 nombre = c.nombre,
                 descripcion = c.descripcion,
-                condicion = c.condicion
+                activo = c.activo,
+                eliminado = c.eliminado
             });
-
         }
 
-        // GET: api/Categorias/Listar
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<SelectViewModel>> Select()
-        {
-            var categoria = await _context.Categorias.Where(c => c.condicion == true).ToListAsync();
-
-            return categoria.Select(c => new SelectViewModel
-            {
-                idcategoria = c.idcategoria,
-                nombre = c.nombre
-            });
-
-        }
-
-        // GET: api/Categorias/Mostrar/1
+        // GET: api/Falla/Mostrar/1
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> Mostrar([FromRoute] int id)
         {
 
-            var categoria = await _context.Categorias.FindAsync(id);
+            var area = await _context.Fallas.FindAsync(id);
 
-            if (categoria == null)
+            if (area == null)
             {
                 return NotFound();
             }
 
-            return Ok(new CategoriaViewModel
+            return Ok(new FallaViewModel
             {
-                idcategoria = categoria.idcategoria,
-                nombre = categoria.nombre,
-                descripcion = categoria.descripcion,
-                condicion = categoria.condicion
+                id = area.id,
+                nombre = area.nombre,
+                descripcion = area.descripcion,
+                activo = area.activo,
+                eliminado = area.eliminado
             });
         }
 
-        // PUT: api/Categorias/Actualizar
+
+        // PUT: api/Falla/Actualizar
         [HttpPut("[action]")]
         public async Task<IActionResult> Actualizar([FromBody] ActualizarViewModel model)
         {
@@ -82,20 +70,20 @@ namespace Sistema.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (model.idcategoria <= 0)
+            if (model.id <= 0)
             {
                 return BadRequest();
             }
 
-            var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.idcategoria == model.idcategoria);
+            var falla = await _context.Fallas.FirstOrDefaultAsync(c => c.id == model.id);
 
-            if (categoria == null)
+            if (falla == null)
             {
                 return NotFound();
             }
 
-            categoria.nombre = model.nombre;
-            categoria.descripcion = model.descripcion;
+            falla.nombre = model.nombre;
+            falla.descripcion = model.descripcion;
 
             try
             {
@@ -110,7 +98,7 @@ namespace Sistema.Web.Controllers
             return Ok();
         }
 
-        // POST: api/Categorias/Crear
+        // POST: api/Falla/Crear
         [HttpPost("[action]")]
         public async Task<IActionResult> Crear([FromBody] CrearViewModel model)
         {
@@ -119,14 +107,15 @@ namespace Sistema.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            Categoria categoria = new Categoria
+            Falla falla = new Falla
             {
                 nombre = model.nombre,
                 descripcion = model.descripcion,
-                condicion = true
+                activo = true,
+                eliminado = false
             };
 
-            _context.Categorias.Add(categoria);
+            _context.Fallas.Add(falla);
             try
             {
                 await _context.SaveChangesAsync();
@@ -139,7 +128,7 @@ namespace Sistema.Web.Controllers
             return Ok();
         }
 
-        // DELETE: api/Categorias/Eliminar/1
+        // DELETE: api/Falla/Eliminar/1
         [HttpDelete("[action]/{id}")]
         public async Task<IActionResult> Eliminar([FromRoute] int id)
         {
@@ -148,13 +137,13 @@ namespace Sistema.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var categoria = await _context.Categorias.FindAsync(id);
-            if (categoria == null)
+            var Falla = await _context.Fallas.FindAsync(id);
+            if (Falla == null)
             {
                 return NotFound();
             }
 
-            _context.Categorias.Remove(categoria);
+            _context.Fallas.Remove(Falla);
             try
             {
                 await _context.SaveChangesAsync();
@@ -164,10 +153,11 @@ namespace Sistema.Web.Controllers
                 return BadRequest();
             }
 
-            return Ok(categoria);
-        }
+            return Ok(Falla);
 
-        // PUT: api/Categorias/Desactivar/1
+
+        }
+        // PUT: api/Falla/Desactivar/1
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Desactivar([FromRoute] int id)
         {
@@ -177,14 +167,14 @@ namespace Sistema.Web.Controllers
                 return BadRequest();
             }
 
-            var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.idcategoria == id);
+            var area = await _context.Fallas.FirstOrDefaultAsync(c => c.id == id);
 
-            if (categoria == null)
+            if (area == null)
             {
                 return NotFound();
             }
 
-            categoria.condicion = false;
+            area.activo = false;
 
             try
             {
@@ -199,7 +189,7 @@ namespace Sistema.Web.Controllers
             return Ok();
         }
 
-        // PUT: api/Categorias/Activar/1
+        // PUT: api/fallas/Activar/1
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Activar([FromRoute] int id)
         {
@@ -209,14 +199,14 @@ namespace Sistema.Web.Controllers
                 return BadRequest();
             }
 
-            var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.idcategoria == id);
+            var area = await _context.Fallas.FirstOrDefaultAsync(c => c.id == id);
 
-            if (categoria == null)
+            if (area == null)
             {
                 return NotFound();
             }
 
-            categoria.condicion = true;
+            area.activo = true;
 
             try
             {
@@ -231,9 +221,7 @@ namespace Sistema.Web.Controllers
             return Ok();
         }
 
-        private bool CategoriaExists(int id)
-        {
-            return _context.Categorias.Any(e => e.idcategoria == id);
-        }
+
+
     }
 }
