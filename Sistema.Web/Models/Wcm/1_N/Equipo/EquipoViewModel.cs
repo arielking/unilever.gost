@@ -9,9 +9,9 @@ namespace Sistema.Web.Models.Wcm._1_N.Equipo
     public class EquipoViewModel
     {
         public int idequipo { get; set; }
-        [Required]
+        //[Required]
         public int idarea { get; set; }
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre no debe de tener más de 50 caracteres, ni menos de 3 caracteres.")]
+       // [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre no debe de tener más de 50 caracteres, ni menos de 3 caracteres.")]
         public string area {get;set;}
         public string nombre { get; set; }
         public string descripcion { get; set; }

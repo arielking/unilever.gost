@@ -6,75 +6,65 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema.Datos;
-using Sistema.Entidades.Wcm;
-using Sistema.Web.Models.Wcm.Area;
+using Sistema.Entidades.Wcm._1_N;
+using Sistema.Web.Models.Wcm._1_N.Equipo;
 
 namespace Sistema.Web.Controllers.Wcm
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AreasController : ControllerBase
+    public class EquiposController : ControllerBase
     {
         private readonly DbContextSistema _context;
 
-        public AreasController(DbContextSistema context)
+        public EquiposController(DbContextSistema context)
         {
             _context = context;
         }
 
-        // GET: api/Areas/Listar
+        // GET: api/Equipos/Listar
         [HttpGet("[action]")]
-        public async Task<IEnumerable<AreaViewModel>> Listar()
+        public async Task<IEnumerable<EquipoViewModel>> Listar()
         {
-            var categoria = await _context.Areas.ToListAsync();
+            var equipo = await _context.Equipos.Include(a=>a.area).ToListAsync();
 
-            return categoria.Select(c => new AreaViewModel
+            return equipo.Select(a => new EquipoViewModel
             {
-                id = c.idarea,
-                nombre = c.nombre,
-                descripcion = c.descripcion,
-                activo = c.activo,
-                eliminado = c.eliminado
+                idequipo = a.idequipo,
+                idarea=a.idarea,
+                area=a.area.nombre,
+                nombre = a.nombre,
+                descripcion = a.descripcion,
+                activo = a.activo
             });
-        }
-        // GET: api/Areas/Select
-        [HttpGet("[action]")]
-        public async Task<IEnumerable<SelectViewModel>> Select()
-        {
-            var categoria = await _context.Areas.Where(c =>c.activo==true ).ToListAsync();
 
-            return categoria.Select(c => new SelectViewModel
-            {
-                idarea = c.idarea,
-                nombre = c.nombre,
-               
-            });
         }
 
-        // GET: api/Areas/Mostrar/1
+        // GET: api/Equipos/Mostrar/1
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> Mostrar([FromRoute] int id)
         {
 
-            var area = await _context.Areas.FindAsync(id);
+            var equipo = await _context.Equipos.Include(a=>a.area).
+                SingleOrDefaultAsync(a=>a.idequipo==id);
 
-            if (area == null)
+            if (equipo == null)
             {
                 return NotFound();
             }
 
-            return Ok(new AreaViewModel
+            return Ok(new EquipoViewModel
             {
-                id = area.idarea,
-                nombre = area.nombre,
-                descripcion = area.descripcion,
-                activo = area.activo,
-                eliminado = area.eliminado
+                idequipo = equipo.idequipo,
+                idarea=equipo.idarea,
+                area=equipo.area.nombre,
+                nombre = equipo.nombre,
+                descripcion = equipo.descripcion,
+                activo = equipo.activo
             });
         }
 
-
-        // PUT: api/Areas/Actualizar
+        // PUT: api/Equipos/Actualizar
         [HttpPut("[action]")]
         public async Task<IActionResult> Actualizar([FromBody] ActualizarViewModel model)
         {
@@ -83,20 +73,21 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest(ModelState);
             }
 
-            if (model.id <= 0)
+            if (model.idequipo <= 0)
             {
                 return BadRequest();
             }
 
-            var categoria = await _context.Areas.FirstOrDefaultAsync(c => c.idarea == model.id);
+            var equipo = await _context.Equipos.FirstOrDefaultAsync(c => c.idequipo == model.idequipo);
 
-            if (categoria == null)
+            if (equipo == null)
             {
                 return NotFound();
             }
 
-            categoria.nombre = model.nombre;
-            categoria.descripcion = model.descripcion;
+            equipo.idarea = model.idarea;
+            equipo.nombre = model.nombre;
+            equipo.descripcion = model.descripcion;
 
             try
             {
@@ -111,7 +102,7 @@ namespace Sistema.Web.Controllers.Wcm
             return Ok();
         }
 
-        // POST: api/Areas/Crear
+        // POST: api/Equipos/Crear
         [HttpPost("[action]")]
         public async Task<IActionResult> Crear([FromBody] CrearViewModel model)
         {
@@ -120,15 +111,15 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest(ModelState);
             }
 
-            Area area = new Area
+            Equipo equipo = new Equipo
             {
-                nombre = model.nombre,
+                idarea = model.idarea,
+                nombre=model.nombre,
                 descripcion = model.descripcion,
-                activo = true,
-                eliminado = false
+                activo = true
             };
 
-            _context.Areas.Add(area);
+            _context.Equipos.Add(equipo);
             try
             {
                 await _context.SaveChangesAsync();
@@ -140,37 +131,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok();
         }
-
-        // DELETE: api/Areas/Eliminar/1
-        [HttpDelete("[action]/{id}")]
-        public async Task<IActionResult> Eliminar([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var areas = await _context.Areas.FindAsync(id);
-            if (areas == null)
-            {
-                return NotFound();
-            }
-
-            _context.Areas.Remove(areas);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest();
-            }
-
-            return Ok(areas);
-
-
-        }
-        // PUT: api/Areas/Desactivar/1
+        // PUT: api/Equipos/Desactivar/1
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Desactivar([FromRoute] int id)
         {
@@ -180,14 +141,14 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.Areas.FirstOrDefaultAsync(c => c.idarea == id);
+            var equipo = await _context.Equipos.FirstOrDefaultAsync(c => c.idequipo == id);
 
-            if (area == null)
+            if (equipo == null)
             {
                 return NotFound();
             }
 
-            area.activo = false;
+            equipo.activo = false;
 
             try
             {
@@ -202,7 +163,7 @@ namespace Sistema.Web.Controllers.Wcm
             return Ok();
         }
 
-        // PUT: api/Categorias/Activar/1
+        // PUT: api/Equipos/Activar/1
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Activar([FromRoute] int id)
         {
@@ -212,14 +173,14 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.Areas.FirstOrDefaultAsync(c => c.idarea == id);
+            var equipo = await _context.Equipos.FirstOrDefaultAsync(c => c.idequipo == id);
 
-            if (area == null)
+            if (equipo == null)
             {
                 return NotFound();
             }
 
-            area.activo = true;
+            equipo.activo = true;
 
             try
             {
@@ -233,9 +194,9 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok();
         }
-
-    
-
+        private bool EquipoExists(int id)
+        {
+            return _context.Equipos.Any(e => e.idequipo == id);
+        }
     }
 }
-
