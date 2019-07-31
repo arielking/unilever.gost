@@ -23,6 +23,7 @@ namespace Sistema.Datos
         public DbSet<CondicionInsegura> CondicionesInseguras { get; set; }
         public DbSet<Suceso> Sucesos { get; set; }
         public DbSet<Equipo> Equipos { get; set; }
+        public DbSet<Maquina> Maquinas { get; set; }
         public DbContextSistema(DbContextOptions<DbContextSistema> options) : base(options)
         {
 
@@ -41,6 +42,7 @@ namespace Sistema.Datos
             modelBuilder.ApplyConfiguration(new CondicioneInseguraMap());
             modelBuilder.ApplyConfiguration(new SucesoMap());
             modelBuilder.ApplyConfiguration(new EquipoMap());
+            modelBuilder.ApplyConfiguration(new MaquinaMap());
         }
 
     }
