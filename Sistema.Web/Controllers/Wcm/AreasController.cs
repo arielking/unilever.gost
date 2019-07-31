@@ -30,7 +30,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return categoria.Select(c => new AreaViewModel
             {
-                id = c.id,
+                id = c.idarea,
                 nombre = c.nombre,
                 descripcion = c.descripcion,
                 activo = c.activo,
@@ -52,7 +52,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok(new AreaViewModel
             {
-                id = area.id,
+                id = area.idarea,
                 nombre = area.nombre,
                 descripcion = area.descripcion,
                 activo = area.activo,
@@ -75,7 +75,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var categoria = await _context.Areas.FirstOrDefaultAsync(c => c.id == model.id);
+            var categoria = await _context.Areas.FirstOrDefaultAsync(c => c.idarea == model.id);
 
             if (categoria == null)
             {
@@ -167,7 +167,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.Areas.FirstOrDefaultAsync(c => c.id == id);
+            var area = await _context.Areas.FirstOrDefaultAsync(c => c.idarea == id);
 
             if (area == null)
             {
@@ -199,7 +199,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.Areas.FirstOrDefaultAsync(c => c.id == id);
+            var area = await _context.Areas.FirstOrDefaultAsync(c => c.idarea == id);
 
             if (area == null)
             {

@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Sistema.Datos.Mapping.Wcm
 {
-    class AreaMap : IEntityTypeConfiguration<Area>
+    public class AreaMap : IEntityTypeConfiguration<Area>
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Area> builder)
         {
             builder.ToTable("tb_area")
-               .HasKey(c => c.id);
+               .HasKey(c => c.idarea);
             builder.Property(c => c.nombre)
                 .HasMaxLength(50);
             builder.Property(c => c.descripcion)
