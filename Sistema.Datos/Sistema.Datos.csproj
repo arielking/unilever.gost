@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mapping\Usuarios\" />
     <Folder Include="Mapping\Ventas\" />
   </ItemGroup>
 

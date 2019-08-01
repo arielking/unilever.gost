@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sistema.Datos.Mapping.Almacen;
+using Sistema.Datos.Mapping.Usuarios;
 using Sistema.Datos.Mapping.Wcm;
 using Sistema.Datos.Mapping.Wcm._1_N;
 using Sistema.Entidades.Almacen;
+using Sistema.Entidades.Usuarios;
 using Sistema.Entidades.Wcm;
 using Sistema.Entidades.Wcm._1_N;
 
@@ -12,6 +14,8 @@ namespace Sistema.Datos
     {
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
+        public DbSet<Rol> Roles { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
 
         // dbSET WCM
@@ -34,6 +38,8 @@ namespace Sistema.Datos
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new CategoriaMap());
             modelBuilder.ApplyConfiguration(new ArticuloMap());
+            modelBuilder.ApplyConfiguration(new RolMap());
+            modelBuilder.ApplyConfiguration(new UsuarioMap());
             //Modelos WCM
             modelBuilder.ApplyConfiguration(new AreaMap());
             modelBuilder.ApplyConfiguration(new AnomaliaMap());
