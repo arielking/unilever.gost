@@ -1,11 +1,12 @@
 ﻿CREATE TABLE [dbo].[tb_registro_anomalia] (
     [idrgsanomalia]               INT             IDENTITY (1, 1) NOT NULL,
-    [codigo]           AS              ('N° '+right('000000'+CONVERT([varchar],[id]),(6))),
+    [codigo]           AS              ('N° '+right('000000'+CONVERT([varchar],[idrgsanomalia]),(6))),
     [emision_ts]       DATETIME        NOT NULL,
     [idusuario]        INT             NOT NULL,
     [paso_ma]          INT             NULL,
     [criticidad]       NVARCHAR (1)    NULL,
     [turno]            VARCHAR (2)     NULL,
+
     [idarea]           INT             NOT NULL,
     [idequipo]         INT             NOT NULL,
     [idanomalia]       INT             NULL,
@@ -29,7 +30,7 @@
     FOREIGN KEY ([idequipo]) REFERENCES [dbo].[tb_equipo] ([idequipo]),
     FOREIGN KEY ([idanomalia]) REFERENCES [dbo].[tb_anomalia] ([idanomalia]),
     FOREIGN KEY ([idsucesorelac]) REFERENCES [dbo].[tb_suceso_relacionado] ([idsucesorelac]),
-    FOREIGN KEY ([idtarjeta]) REFERENCES [dbo].[tb_tarjeta] ([idusuario]),
-    FOREIGN KEY ([idresuelto]) REFERENCES [dbo].[tb_usuario] ([idusuario]),
-    FOREIGN KEY ([idsupervisor]) REFERENCES [dbo].[tb_usuario] ([idusuario])
+    FOREIGN KEY ([idtarjeta]) REFERENCES [dbo].[tb_tarjeta] ([idtarjeta]),
+    FOREIGN KEY ([idresuelto]) REFERENCES [dbo].[usuario] ([idusuario]),
+    FOREIGN KEY ([idsupervisor]) REFERENCES [dbo].[usuario] ([idusuario])
 );

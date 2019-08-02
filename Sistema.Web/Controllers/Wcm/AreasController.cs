@@ -10,6 +10,7 @@ using Sistema.Entidades.Wcm;
 using Sistema.Web.Models.Wcm.Area;
 
 namespace Sistema.Web.Controllers.Wcm
+    //password wifi b850sbe5
 {
     [Route("api/[controller]")]
     [ApiController]
