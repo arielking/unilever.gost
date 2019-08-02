@@ -29,7 +29,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return tarjeta.Select(c => new TarjetaModel
             {
-                id = c.id,
+                idtarjeta = c.idtarjeta,
                 nombre = c.nombre,
                 descripcion= c.descripcion,
               
@@ -52,7 +52,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok(new TarjetaModel
             {
-                id = tarjeta.id,
+                idtarjeta = tarjeta.idtarjeta,
                 nombre = tarjeta.nombre,
                 descripcion= tarjeta.descripcion,
                 activo = tarjeta.activo,
@@ -70,12 +70,12 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest(ModelState);
             }
 
-            if (model.id <= 0)
+            if (model.idtarjeta <= 0)
             {
                 return BadRequest();
             }
 
-            var tarjeta = await _context.Tarjetas.FirstOrDefaultAsync(c => c.id == model.id);
+            var tarjeta = await _context.Tarjetas.FirstOrDefaultAsync(c => c.idtarjeta == model.idtarjeta);
 
             if (tarjeta == null)
             {
@@ -170,7 +170,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var tarjeta = await _context.Tarjetas.FirstOrDefaultAsync(c => c.id == id);
+            var tarjeta = await _context.Tarjetas.FirstOrDefaultAsync(c => c.idtarjeta == id);
 
             if (tarjeta == null)
             {
@@ -202,7 +202,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var tarjeta = await _context.Tarjetas.FirstOrDefaultAsync(c => c.id == id);
+            var tarjeta = await _context.Tarjetas.FirstOrDefaultAsync(c => c.idtarjeta == id);
 
             if (tarjeta == null)
             {

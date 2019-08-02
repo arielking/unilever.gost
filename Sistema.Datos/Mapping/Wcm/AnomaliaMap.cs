@@ -14,7 +14,7 @@ namespace Sistema.Datos.Mapping.Wcm
         public void Configure(EntityTypeBuilder<Anomalia> builder)
         {
             builder.ToTable("tb_anomalia")
-               .HasKey(c => c.id);
+               .HasKey(c => c.idanomalia);
             builder.Property(c => c.nombre)
                 .HasMaxLength(50);
             builder.Property(c => c.descripcion)

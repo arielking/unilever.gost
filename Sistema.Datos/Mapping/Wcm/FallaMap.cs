@@ -8,7 +8,7 @@ namespace Sistema.Datos.Mapping.Wcm
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Falla> builder)
         {
             builder.ToTable("tb_tipo_falla")
-                .HasKey(c => c.id);
+                .HasKey(c => c.idfalla);
             builder.Property(c => c.nombre)
                 .HasMaxLength(50);
             builder.Property(c => c.descripcion)

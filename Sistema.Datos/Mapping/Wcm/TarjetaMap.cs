@@ -14,7 +14,7 @@ namespace Sistema.Datos.Mapping.Wcm
         public void Configure(EntityTypeBuilder<Tarjeta> builder)
         {
             builder.ToTable("tb_tarjeta")
-              .HasKey(c => c.id);
+              .HasKey(c => c.idtarjeta);
             builder.Property(c => c.nombre)
                 .HasMaxLength(50);
             builder.Property(c => c.descripcion)

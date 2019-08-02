@@ -12,7 +12,7 @@ namespace Sistema.Datos.Mapping.Wcm
         public void Configure(EntityTypeBuilder<Suceso> builder)
         {
             builder.ToTable("tb_suceso_relacionado")
-              .HasKey(c => c.id);
+              .HasKey(c => c.idsucesorelac);
             builder.Property(c => c.nombre)
                 .HasMaxLength(50);
             builder.Property(c => c.descripcion)

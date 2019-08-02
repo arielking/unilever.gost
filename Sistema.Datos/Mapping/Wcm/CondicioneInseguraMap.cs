@@ -12,7 +12,7 @@ namespace Sistema.Datos.Mapping.Wcm
         public void Configure(EntityTypeBuilder<CondicionInsegura> builder)
         {
             builder.ToTable("tb_cond_inseg")
-                .HasKey(c => c.id);
+                .HasKey(c => c.idcondinsegura);
             builder.Property(c => c.nombre)
                 .HasMaxLength(50);
             builder.Property(c => c.descripcion)

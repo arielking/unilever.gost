@@ -7,7 +7,7 @@ namespace Sistema.Web.Models.Wcm.CondicionInsegura
 {
     public class CondicionInseguraViewModel
     {
-        public int id { get; set; }
+        public int idcondinsegura { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public bool activo { get; set; }

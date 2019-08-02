@@ -7,7 +7,7 @@ namespace Sistema.Entidades.Wcm
 {
     public class Falla
     {
-        public int id { get; set; }
+        public int idfalla { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "El nombre no debe de tener más de 50 caracteres, ni menos de 3 caracteres.")]
         public string nombre { get; set; }

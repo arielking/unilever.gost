@@ -30,7 +30,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return falla.Select(c => new FallaViewModel
             {
-                id = c.id,
+                idfalla = c.idfalla,
                 nombre = c.nombre,
                 descripcion = c.descripcion,
                 activo = c.activo,
@@ -52,7 +52,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok(new FallaViewModel
             {
-                id = area.id,
+                idfalla = area.idfalla,
                 nombre = area.nombre,
                 descripcion = area.descripcion,
                 activo = area.activo,
@@ -70,12 +70,12 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest(ModelState);
             }
 
-            if (model.id <= 0)
+            if (model.idfalla <= 0)
             {
                 return BadRequest();
             }
 
-            var falla = await _context.Fallas.FirstOrDefaultAsync(c => c.id == model.id);
+            var falla = await _context.Fallas.FirstOrDefaultAsync(c => c.idfalla == model.idfalla);
 
             if (falla == null)
             {
@@ -167,7 +167,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.Fallas.FirstOrDefaultAsync(c => c.id == id);
+            var area = await _context.Fallas.FirstOrDefaultAsync(c => c.idfalla == id);
 
             if (area == null)
             {
@@ -199,7 +199,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.Fallas.FirstOrDefaultAsync(c => c.id == id);
+            var area = await _context.Fallas.FirstOrDefaultAsync(c => c.idfalla == id);
 
             if (area == null)
             {

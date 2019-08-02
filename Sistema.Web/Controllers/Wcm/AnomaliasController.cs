@@ -31,7 +31,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return categoria.Select(c => new AnomaliaModel
             {
-                id = c.id,
+                idanomalia = c.idanomalia,
                 nombre = c.nombre,
                 descripcion = c.descripcion,
                 activo = c.activo,
@@ -53,7 +53,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok(new AnomaliaModel
             {
-                id = anomalia.id,
+                idanomalia = anomalia.idanomalia,
                 nombre = anomalia.nombre,
                 descripcion = anomalia.descripcion,
                 activo = anomalia.activo,
@@ -71,12 +71,12 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest(ModelState);
             }
 
-            if (model.id <= 0)
+            if (model.idanomalia <= 0)
             {
                 return BadRequest();
             }
 
-            var anomalia = await _context.Anomalias.FirstOrDefaultAsync(c => c.id == model.id);
+            var anomalia = await _context.Anomalias.FirstOrDefaultAsync(c => c.idanomalia == model.idanomalia);
 
             if (anomalia == null)
             {
@@ -167,7 +167,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var anomalia = await _context.Anomalias.FirstOrDefaultAsync(c => c.id == id);
+            var anomalia = await _context.Anomalias.FirstOrDefaultAsync(c => c.idanomalia == id);
 
             if (anomalia == null)
             {
@@ -199,7 +199,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var anomalia = await _context.Anomalias.FirstOrDefaultAsync(c => c.id == id);
+            var anomalia = await _context.Anomalias.FirstOrDefaultAsync(c => c.idanomalia == id);
 
             if (anomalia == null)
             {

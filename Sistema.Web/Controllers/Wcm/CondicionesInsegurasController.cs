@@ -29,7 +29,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return categoria.Select(c => new CondicionInseguraViewModel
             {
-                id = c.id,
+                idcondinsegura = c.idcondinsegura,
                 nombre = c.nombre,
                 descripcion = c.descripcion,
                 activo = c.activo,
@@ -51,7 +51,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok(new CondicionInseguraViewModel
             {
-                id = area.id,
+                idcondinsegura = area.idcondinsegura,
                 nombre = area.nombre,
                 descripcion = area.descripcion,
                 activo = area.activo,
@@ -69,12 +69,12 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest(ModelState);
             }
 
-            if (model.id <= 0)
+            if (model.idcondinsegura <= 0)
             {
                 return BadRequest();
             }
 
-            var categoria = await _context.CondicionesInseguras.FirstOrDefaultAsync(c => c.id == model.id);
+            var categoria = await _context.CondicionesInseguras.FirstOrDefaultAsync(c => c.idcondinsegura == model.idcondinsegura);
 
             if (categoria == null)
             {
@@ -166,7 +166,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.CondicionesInseguras.FirstOrDefaultAsync(c => c.id == id);
+            var area = await _context.CondicionesInseguras.FirstOrDefaultAsync(c => c.idcondinsegura == id);
 
             if (area == null)
             {
@@ -198,7 +198,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.CondicionesInseguras.FirstOrDefaultAsync(c => c.id == id);
+            var area = await _context.CondicionesInseguras.FirstOrDefaultAsync(c => c.idcondinsegura == id);
 
             if (area == null)
             {

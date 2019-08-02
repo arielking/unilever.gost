@@ -29,7 +29,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return categoria.Select(c => new SucesoViewModel
             {
-                id = c.id,
+                idsucesorelac = c.idsucesorelac,
                 nombre = c.nombre,
                 descripcion = c.descripcion,
                 activo = c.activo,
@@ -51,7 +51,7 @@ namespace Sistema.Web.Controllers.Wcm
 
             return Ok(new SucesoViewModel
             {
-                id = area.id,
+                idsucesorelac = area.idsucesorelac,
                 nombre = area.nombre,
                 descripcion = area.descripcion,
                 activo = area.activo,
@@ -69,12 +69,12 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest(ModelState);
             }
 
-            if (model.id <= 0)
+            if (model.idsucesorelac <= 0)
             {
                 return BadRequest();
             }
 
-            var categoria = await _context.Sucesos.FirstOrDefaultAsync(c => c.id == model.id);
+            var categoria = await _context.Sucesos.FirstOrDefaultAsync(c => c.idsucesorelac == model.idsucesorelac);
 
             if (categoria == null)
             {
@@ -166,7 +166,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var suceso = await _context.Sucesos.FirstOrDefaultAsync(c => c.id == id);
+            var suceso = await _context.Sucesos.FirstOrDefaultAsync(c => c.idsucesorelac == id);
 
             if (suceso == null)
             {
@@ -198,7 +198,7 @@ namespace Sistema.Web.Controllers.Wcm
                 return BadRequest();
             }
 
-            var area = await _context.Sucesos.FirstOrDefaultAsync(c => c.id == id);
+            var area = await _context.Sucesos.FirstOrDefaultAsync(c => c.idsucesorelac == id);
 
             if (area == null)
             {
