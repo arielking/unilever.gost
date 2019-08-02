@@ -10,10 +10,11 @@ using Sistema.Entidades.Wcm;
 using Sistema.Web.Models.Wcm.Area;
 
 namespace Sistema.Web.Controllers.Wcm
-    //password wifi b850sbe5
+    //password wifi b805abe5 ssd E54
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class AreasController : ControllerBase
     {
         private readonly DbContextSistema _context;

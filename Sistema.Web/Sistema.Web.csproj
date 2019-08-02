@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Wcm\N_N\" />
     <Folder Include="Models\Ventas\" />
   </ItemGroup>
 
